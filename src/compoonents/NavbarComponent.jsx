@@ -6,6 +6,7 @@ import logo from '../assets/logo.png'
 
 //icons
 import { CiUser,CiHeart,CiShoppingCart, CiShop   } from "react-icons/ci";
+import CategoryComponent from './CategoryComponent';
 
 function NavbarComponent() {
 
@@ -14,8 +15,8 @@ function NavbarComponent() {
   return (
     <div className=''>
         <HeadingComponent />
-        <nav className='bg-mainBlue  h-[100px]'>
-        <div className='container mx-auto flex items-center justify-between h-full'>
+        <nav className='bg-mainBlue h:full  lg:h-[100px] py-4'>
+        <div className='container mx-auto flex flex-col lg:flex-row items-center justify-between h-full gap-3'>
             <img src={logo} alt="logo" />
 
             <div className='bg-whiteColor rounded-[20px]'>
@@ -47,6 +48,7 @@ function NavbarComponent() {
             </div>
         </div>
         </nav>
+        <CategoryComponent />
     </div>
   )
 }
