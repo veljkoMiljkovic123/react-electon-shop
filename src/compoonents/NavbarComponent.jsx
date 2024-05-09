@@ -7,9 +7,11 @@ import logo from '../assets/logo.png'
 //icons
 import { CiUser,CiHeart,CiShoppingCart, CiShop   } from "react-icons/ci";
 import CategoryComponent from './CategoryComponent';
+import { useSelector } from 'react-redux';
 
 function NavbarComponent() {
 
+    const {totalProduct} = useSelector(state=>state.cartStore)
    
 
   return (
@@ -40,7 +42,7 @@ function NavbarComponent() {
                     <li className='flex-center gap-2'>
                         <div className='flex-center'>
                         <CiShoppingCart color='white' size={25}/>
-                        <span className='badge'>0</span>
+                        <span className='badge'>{totalProduct}</span>
                         </div>
                         <Link to={'/cart'}>Cart</Link>
                     </li>

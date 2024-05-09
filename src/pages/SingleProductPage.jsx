@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProductsService from "../services/productsService";
 import { Rating } from "@mui/material";
 import { ImCross } from "react-icons/im";
 import { FaCheck } from "react-icons/fa";
+
+import {CiHeart,CiShoppingCart   } from "react-icons/ci";
+import { useDispatch } from "react-redux";
+import { saveInCartAction } from "../store/cartSlice";
 function SingleProductPage() {
   const { productId } = useParams();
   const [singleProduct, setSingleProduct] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+  const dispatch = useDispatch()
   useEffect(() => {
     ProductsService.getSingleProduct(productId)
       .then((res) => {
@@ -20,6 +25,10 @@ function SingleProductPage() {
 
   function handleCurrentImg(i){
     setCurrentImage(i)
+  }
+
+  function handleAddToCart(){
+    dispatch(saveInCartAction(singleProduct));
   }
 
   return (
@@ -50,6 +59,12 @@ function SingleProductPage() {
             </p>
             <p>Hurry up! only <span className="font-bold">{singleProduct.stock}</span> product left in stock!</p>
             <p>Total price: <span className="font-bold">${singleProduct.price}</span></p>
+
+            {/* ADD / Favorite button */}
+            <div className="flex-center gap-5 mt-10">
+              <Link to='/cart' className="bg-mainYellow text-whiteColor px-6 py-3 rounded-2xl" onClick={handleAddToCart}>Add to Cart</Link>
+              <Link className="bg-lightBlue border border-blackTextColor px-6 py-3 rounded-2xl" to='/favorite'><CiHeart size={22}/></Link>
+            </div>
           </div>
         </div>
       ) : (
