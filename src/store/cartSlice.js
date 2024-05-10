@@ -24,7 +24,7 @@ const cartSlice = createSlice({
             })
             // 2. if statment
             if(findIndex===null){
-                copyArray.push({...action.payload,count:1})
+                copyArray.push({...action.payload,count:1,cartTotal:action.payload.price})
                 state.totalProduct++;  
                 state.totalPrice += action.payload.price
             }else{
@@ -33,9 +33,28 @@ const cartSlice = createSlice({
 
 
             state.cart = copyArray;
+        },
+        deleteItemCardAction:(state,action) => {
+            console.log(action.payload.id);
+            
+            let copyArray = [...state.cart]
+            // 1. Da li ga imamo u korpi, cilj je indeksna pozicija?
+            let findIndex = null;
+
+            copyArray.find((item,index)=>{
+                if(item.id === action.payload.id){
+                    findIndex=index;
+                    return
+                }
+            })
+
+            if(findIndex !== null){
+                copyArray.splice(findIndex,1)
+            }
+            state.cart=copyArray
         }
     }
 })
 
-export const {saveInCartAction} = cartSlice.actions
+export const {saveInCartAction,deleteItemCardAction} = cartSlice.actions
 export default cartSlice.reducer
